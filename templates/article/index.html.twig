@@ -6,6 +6,20 @@
 .post-thumb{
     width:100%;
 }
+.pagination span:hover {
+    background: #f4f4f4;
+}
+.pagination span {
+    display: block;
+    background: #97bbbd;
+    padding:1%;
+    margin:5px;
+    border: 1px solid #f4f4f4;
+}
+.current{
+    background: #f4f4f4 !important;
+    border: 1px solid $f4f4ff;
+}
 </style>
 
 <div>
@@ -24,16 +38,19 @@
 
                 <h4>{{ article.getTitle() }}</h4>
 
-                <small class="post-date"><strong>{{ article.getUserId() }}</strong></small>
+                <small class="post-date">By: <strong>{{ article.getUserId().getUserName() }}</strong></small>
 
                 <p>{{ article.getBody() }}</p>
 
-                <p><a class="btn btn-info" href="article/view/{{article.getId()}}">Read More</a></p>
+                <p><a class="btn btn-info" href="/Symfony/blog/public/article/view/{{article.getId()}}">Read More</a></p>
 
             </div>
 
         </div>
     {% endfor %}
+    <div class="pagination-link">
+        {{ knp_pagination_render(articles) }}
+    </div>
 {% else %}
     <h4> There are no article to show </h4>
 {% endif %}

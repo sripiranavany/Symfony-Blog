@@ -17,40 +17,28 @@ class Comment
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $article;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article")
      */
-    private $user;
+    private $article;
 
     /**
      * @ORM\Column(type="text")
      */
     private $body;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getArticle(): ?int
-    {
-        return $this->article;
-    }
-
-    public function setArticle(int $article): self
-    {
-        $this->article = $article;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -65,14 +53,14 @@ class Comment
         return $this;
     }
 
-    public function getUser(): ?int
+    public function getArticle(): ?Article
     {
-        return $this->user;
+        return $this->article;
     }
 
-    public function setUser(int $user): self
+    public function setArticle(?Article $article): self
     {
-        $this->user = $user;
+        $this->article = $article;
 
         return $this;
     }
@@ -85,6 +73,18 @@ class Comment
     public function setBody(string $body): self
     {
         $this->body = $body;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

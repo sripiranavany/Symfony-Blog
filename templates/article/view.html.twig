@@ -18,20 +18,33 @@
             </div>
 
             <div>
-                <small class="post-date"><strong>{{ article.getUserId() }}</strong></small>
+                <small class="post-date"><strong>{{ article.getUserId().getUserName() }}</strong></small>
                 <p>{{ article.getBody() }}</p>
             </div>
-            {% if article.getId() == LoginUser %}
+            {% if article.getUserId().getId() == LoginUser %}
             <div>
-                <p><a class="btn btn-danger" href="/Symfony/blog/public/article/delete/{{article.getId()}}">Delete</a></p>
+                <p>
+                    <a class="btn btn-warning" href="/Symfony/blog/public/article/edit/{{article.getId()}}">Edit</a>
+                    <a class="btn btn-danger" href="/Symfony/blog/public/article/delete/{{article.getId()}}">Delete</a>
+                </p>
             </div>
             {% endif %}
 
         </div>
         {% if app.user%}
-            <div>
-                <h5>Comments</h5>
+            <div class="mb-5">
+                {{form(form)}}
             </div>
+        {% endif %}
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="mt-3 card">
+                    <p>{{ comment.getBody() }}</p>
+                    <small>by:- <strong>{{ comment.getUser().getUserName() }}</strong>({{ comment.getUser.getEmail() }})</small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>No Comments Availble. </h5>
         {% endif %}
 {% endif %}
 </div>

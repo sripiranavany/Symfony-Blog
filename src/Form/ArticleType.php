@@ -19,7 +19,7 @@ class ArticleType extends AbstractType
     {
         $choices = array();
         foreach ($options['cate'] as $category) {
-            $choices[$category->getName()] = $category->getId();
+            $choices[$category->getName()] = $category;
         }
         $builder
             ->add('title',TextType::class,[
@@ -45,6 +45,7 @@ class ArticleType extends AbstractType
                ]
             ])
             ->add('post_image',FileType::class,[
+                'data_class' => null,
                 'label' => 'Image',
                 'attr' => [
                     'class' => 'form-control mb-3'

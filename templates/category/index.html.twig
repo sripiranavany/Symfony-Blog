@@ -3,7 +3,25 @@
 {% block title %}Article Categories{% endblock %}
 
 {% block body %}
-
+<style>
+.post-thumb{
+    width:100%;
+}
+.pagination span:hover {
+    background: #f4f4f4;
+}
+.pagination span {
+    display: block;
+    background: #97bbbd;
+    padding:1%;
+    margin:5px;
+    border: 1px solid #f4f4f4;
+}
+.current{
+    background: #f4f4f4 !important;
+    border: 1px solid $f4f4ff;
+}
+</style>
 <div>
     <h1 class="mt-5 text-center">Article Categories</h1>
     {% if articles %}
@@ -19,17 +37,20 @@
             {% for artice in articles %}
                 <tr>
                     <td>{{ artice.getName() }}</td>
-                    <td>{{ artice.getUserId()}}</td>
+                    <td>{{ artice.getUserId().getUserName()}}</td>
                     <td>
-                        <a href="" class="btn btn-warning">View</a>
-                        {% if artice.getUserId() == LoginUser %}
-                            <a href="category/delete/{{ artice.getId()}}" class="btn btn-danger">Delete</a>
+                        <a href="/Symfony/blog/public/category/view/{{ artice.getId() }}" class="btn btn-warning">View</a>
+                        {% if artice.getUserId().getId() == LoginUser %}
+                            <a href="/Symfony/blog/public/category/delete/{{ artice.getId()}}" class="btn btn-danger">Delete</a>
                         {% endif %}
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <div class="pagination-link">
+        {{ knp_pagination_render(articles) }}
+    </div>
     {% else %}
     <h4>There are no categories to display</h4>
     {% endif %}
