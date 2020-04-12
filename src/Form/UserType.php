@@ -32,7 +32,10 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('password',RepeatedType::class,[
-                'type' => PasswordType::class
+                'type' => PasswordType::class,
+                'options' => ['attr' => ['class' => 'form-control']],
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat Password'],
             ])
             ->add('Submit',SubmitType::class,[
                 'attr' => [
